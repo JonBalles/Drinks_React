@@ -1,0 +1,56 @@
+.modalBg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalBg .modal {
+    background-color: white;
+    width: 500px;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.icon{
+    color: red;
+    cursor: pointer;
+}
+
+.modalBody{
+    display: grid;
+    grid-template-columns: 75% 25%;
+}
+
+.btnContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btnContainer button{
+    background-color: transparent;
+    border: none ;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.btnContainer .clearCart{
+    background-color: lightgray;
+    color: gray;
+}
+
+.btnContainer .confirmOrder{
+    background-color: lightgoldenrodyellow;
+    color: gray;
+}
