@@ -10,14 +10,13 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Copyright from "../Copyright"
 import { Formik } from 'formik';
+import { Link } from "react-router-dom";
+import useAuth from '../../../hooks/useAuth';
 
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-
 const {register} = useAuth()
 
   return (
@@ -43,9 +42,8 @@ const {register} = useAuth()
           initialValues={{
             name:"",
             email:"",
-            password: "",
         }}
-        validate={() =>{
+        validate={(values) =>{
             const errors = { };
             const regexpEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -64,9 +62,8 @@ const {register} = useAuth()
 
             return errors
         }}
-        onSubmit ={(values, {setSubmiting} ) => {
+        onSubmit ={(values) => {
           register(values)
-            setSubmiting(false)
         } }
         >
         {
@@ -77,12 +74,9 @@ const {register} = useAuth()
                 handleBlur,
                 handleChange,
                 handleSubmit,
-                isSubmitting, }) => (
-
-
+            }) => (
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-            
               <Grid item xs={12}>
               <TextField
                   margin="normal"
@@ -140,7 +134,7 @@ const {register} = useAuth()
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to="/signin" variant="body2">
+                <Link to="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

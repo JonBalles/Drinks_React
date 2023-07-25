@@ -1,8 +1,8 @@
-import { useModal } from "../../hooks/useModal"
+import  useModal  from "../../hooks/useModal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styles from "./CartModal.module.css"
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons"
-import { useCart } from "../../hooks/useCart"
+import  useCart  from "../../hooks/useCart"
 import { ModalCard } from "./components/Card"
 
 export function CartModal() {
@@ -19,16 +19,16 @@ export function CartModal() {
                         {cart.cartItems.length === 0 && (
                             <h3>No hay productos en el carrito</h3>
                         )}
-                        {cart.cartItems.map((item) => {
+                        {cart.cartItems.map((drink) => {return (
                             <ModalCard key={drink.idDrink} drink={drink} />
-                        })}
+                            )})}
                     </div>
                     <aside>
                         
-                        <p>${drink.price}</p>
+                        
                         <div className={styles.btnContainer}>
                             <button onClick={clearCart} className={styles.clearCart}>Vaciar carrito</button>
-                            <button onclick={sendOrder} className={styles.confirmOrder}>Confirmar Compra</button>
+                            <button onClick={sendOrder} className={styles.confirmOrder}>Confirmar Compra</button>
                         </div>
                     </aside>
                 </section>
@@ -38,3 +38,5 @@ export function CartModal() {
 
 
 }
+
+export default CartModal;

@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styles from "./Header.module.css"
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons"
-import { useModal } from "../../hooks/useModal"
+import  useModal  from "../../hooks/useModal"
+import useAuth from "../../hooks/useAuth"
 
 export default function Header  () {
     const {toogleModal} = useModal()
@@ -11,8 +12,10 @@ export default function Header  () {
         <header className={`py-5 ${styles.header}`}>
         <h1>Buscador de Bebidas</h1>
         {currentUser && <>
-            <p>{currenUser.name}</p>
-            <FontAwesomeIcon icon={faCartShopping} onClick={toogleModal}/>
+            <p>{currentUser.name}</p>
+            <br/>
+            <FontAwesomeIcon icon={faCartShopping} className={styles.icon} onClick={() => toogleModal()}/>
+            <br/>
             <button onClick={logout}>Cerrar sesion</button>
             </>
         }

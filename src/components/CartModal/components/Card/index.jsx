@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import styles from "./Card.module.css"
-import {useCart} from "../../../../hooks/useCart"
+import useCart from "../../../../hooks/useCart"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 
@@ -9,7 +9,7 @@ export function ModalCard ({drink}) {
     return (
         <article className={styles.card}>
                                 <img src={drink.strDrinkThumb}/>
-                                <span>Nombre</span>
+                                <span>{drink.strDrink}</span>
                                 <span>{drink.price}</span>
                                 <div className={styles.counter}>
                                     <button onClick={() => removeOneFromCart(drink.idDrink)}>
@@ -25,6 +25,6 @@ export function ModalCard ({drink}) {
     )
 }
 
-ModalCard.PropTypes = {
+ModalCard.propTypes = {
     drink: PropTypes.object.isRequired
 }

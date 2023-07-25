@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router} from "react-router-dom";
 import { CartProvider } from "./context/CartProvider"
 import { CategoriesProvider } from "./context/CategoriesProvider"
 import { DrinksProvider } from "./context/DrinksProvider"
@@ -10,8 +10,8 @@ import AppRoutes from "./routes"
 function App() {
 
   return (
-    <Routes>
-    <Route>
+    <Router>
+    
     <AuthProvider>
     <ModalProvider>
       <CartProvider>
@@ -25,8 +25,8 @@ function App() {
       </CartProvider>
     </ModalProvider>
     </AuthProvider>
-    </Route>
-    </Routes>
+    
+    </Router>
   )
 }
 

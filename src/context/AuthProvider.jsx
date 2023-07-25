@@ -13,17 +13,17 @@ export default function AuthProvider({children}) {
     let [ currentUser, setCurrentUser] = useState(null)
     const storedToken = localStorage.getItem("_token")
 
-    useEffect(()=>{
+    useEffect(() => {
         if(storedToken){
-            const decodedToken= storedToken ? jwt_decode(res.token):null;
+            const decodedToken = storedToken ? jwt_decode(storedToken) : null;
             const { user } = decodedToken ? decodedToken : null;
-            
-            setCurrentUser = user
 
-         return navigate("/")
-           
+            setCurrentUser(user);
+
+            return navigate("/");
         }
-    },[])
+
+    }, [])
 
 function register(data){
     userRegister(data)
@@ -31,7 +31,7 @@ function register(data){
         if(res.ok){
             alert(res.message)
             setTimeout(() => {
-                navigate("/register")
+                navigate("/login")
             }, 1000)
             return;
         }else{
@@ -50,8 +50,10 @@ function login (data) {
             const { user } = decodedToken ? decodedToken : null;
             
             setCurrentUser = user
-
-         return navigate("/")
+            
+                navigate("/")
+            
+         return;
            
         }else{
             return Promise.reject(res)
@@ -75,7 +77,7 @@ const values = {
     }
 
     return (
-        <AuthContext.Provider values={values}>
+        <AuthContext.Provider value={values}>
             {children}
         </AuthContext.Provider>
     )

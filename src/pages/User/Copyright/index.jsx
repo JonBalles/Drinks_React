@@ -1,4 +1,4 @@
-import  Typography  from '@mui/material/Typography';
+import  {Typography}  from '@mui/material';
 import { Link } from 'react-router-dom';
 
 export default function Copyright(props) {

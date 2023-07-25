@@ -2,7 +2,7 @@ import { useReducer, createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types"
 import { actionTypes } from "../actions/cart.actions"
 import { cartInitialState, cartReducer } from "../reducers/cart.reducer";
-
+import totalPrice from '../utils/cart.utils';
 const CartContext = createContext()
 
 function CartProvider ({children}) {
@@ -11,13 +11,9 @@ function CartProvider ({children}) {
     
     
     useEffect(()=>{
-        if(state.cartItems.length > 0){
-            let total = getTotalPricesItems(state.cartItems).reduce((a,b) => a + b)
-            setOrderTotal(total)
-        }
+        let total = totalPrice(state.cartItems).reduce((a,b) => a + b, 0);
+        setOrderTotal(total)
     },[state])
-
-    
 
     function addToCart(drink){
         dispatch({type: actionTypes.ADD_TO_CART, payload: drink})
@@ -33,7 +29,6 @@ function CartProvider ({children}) {
 
     function clearCart(){
         dispatch({type: actionTypes.CLEAR_CART})
-        setOrderTotal(0)
     }
 
     function sendOrder(){
@@ -46,7 +41,8 @@ function CartProvider ({children}) {
         removeAllFromCart,
         removeOneFromCart,
         clearCart,
-        sendOrder
+        sendOrder,
+        orderTotal
     }
 
     return (
@@ -61,4 +57,4 @@ CartProvider.propTypes = {
     children: PropTypes.node.isRequired,
 }
 
-export {CartContext, CartProvider}
+export { CartContext, CartProvider}

@@ -6,21 +6,25 @@ export const cartInitialState = {
 
 export function cartReducer (state, {payload = {} , type}){
     const {idDrink} = payload;
- 
+
     let drinksInCart = state.cartItems.find((item) => item.idDrink === idDrink)
     
     switch (type) {
          case actionTypes.ADD_TO_CART:
              if(drinksInCart){
                 let cartItemsUpdated = state.cartItems.map((item) => {
-                    
+                    if(item.idDrink === idDrink){
+                        return {
+                            ...item,
+                            quantity: item.quantity + 1, 
+                        }
+                    }
+                    return item
                 })
-                 state.cartItems.forEach(item => {
-                     if(item.idDrink === idDrink){
-                         item.quantity = item.quantity +1;
-                     }
-                 })
-                 return state;
+                return {
+                    ...state,
+                    cartItems: cartItemsUpdated,
+                }
              }else {
              payload.quantity = 1
              return {
@@ -33,28 +37,34 @@ export function cartReducer (state, {payload = {} , type}){
                 let cartItemsUpdated= state.cartItems.map((item) =>{
                     if(item.idDrink === idDrink){
                         return{
-                            ...state,
-                            cartItems: cartItemsUpdated
+                            ...item,
+                            quantity: item.quantity - 1
                         }
                     }
+                    return item;
                 })
- 
+                return {
+                    ...state,
+                    cartItems: cartItemsUpdated,
+                }
          }else {
-            let cartItemsUpdated = state.cartItems.filter( (item) =>
-                item.idDrink !== idDrink
-            )
-            return{
-                ...state,
-                cartItems: cartItemsUpdated
+            if(drinksInCart){
+                let cartItemsUpdated = state.cartItems.filter((item) => item.idDrink !== idDrink);
+                return {
+                    ...state,
+                    cartItems: cartItemsUpdated
+                }
             }
-         }
+        }
          case actionTypes.REMOVE_ALL_FROM_CART:
             if(drinksInCart){
-
+                let cartItemsUpdated = state.cartItems.filter(item => item.idDrink !== idDrink)
+                return {
+                    ...state,
+                    cartItems: cartItemsUpdated
+                }
             }
-         
-         
-         case CLEAR_CART:
+         case actionTypes.CLEAR_CART:
              return {
                  ...state,
                  cartItems: []

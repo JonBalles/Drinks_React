@@ -8,12 +8,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Copyright from "../Copyright"
 import { Formik } from 'formik';
 import { Link } from 'react-router-dom';
-
-
-// TODO remove, this demo shouldn't need to reset the theme.
+import useAuth from '../../../hooks/useAuth';
 
 const defaultTheme = createTheme();
 
@@ -45,7 +42,7 @@ export default function SignIn() {
             email:"",
             password: "",
         }}
-        validate={() =>{
+        validate={(values) =>{
             const errors = { };
             const regexpEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -60,9 +57,8 @@ export default function SignIn() {
 
             return errors
         }}
-        onSubmit ={(values, {setSubmiting} ) => {
+        onSubmit ={(values) => {
             login(values)
-            setSubmiting(false)
         } }
         >
         {
@@ -72,7 +68,7 @@ export default function SignIn() {
                 handleBlur,
                 handleChange,
                 handleSubmit,
-                isSubmitting, }) => (
+            }) => (
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
@@ -99,10 +95,7 @@ export default function SignIn() {
                   onBlur={handleBlur}
                   helperText = {errors.password && touched.password && errors.password}
                 />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+           
               <Button
                 type="submit"
                 fullWidth
@@ -112,29 +105,17 @@ export default function SignIn() {
                 Ingresar
               </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link to="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
                 <Grid item>
-                  <Link to="/signup" variant="body2">
+                  <Link to="/register" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
               </Grid>
-                </Box>
+            </Box>
             )
           }
-
-          
-          
-
-
           </Formik>
-
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );
